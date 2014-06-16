@@ -156,5 +156,8 @@ RUN echo "#!/bin/sh" > $ROOTFS/usr/local/bin/autologin && \
     echo "/bin/login -f docker" >> $ROOTFS/usr/local/bin/autologin && \
     chmod 755 $ROOTFS/usr/local/bin/autologin
 
+RUN mkdir -p $ROOTFS/home/docker/Develop && echo "192.168.59.3:/Develop /home/docker/Develop nfs nfsvers=3,nolock,proto=udp,rsize=51200 0 0" >> $ROOTFS/etc/fstab
+RUN echo "sudo mount -a" >> $ROOTFS/etc/profile
+
 RUN /make_iso.sh
 CMD ["cat", "boot2docker.iso"]
